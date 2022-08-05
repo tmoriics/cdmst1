@@ -6,7 +6,7 @@ seaborn
 altair
 xlrd
 openpyxl
-streamlit
 requests
 plotly
+streamlit
 streamlit-aggrid
