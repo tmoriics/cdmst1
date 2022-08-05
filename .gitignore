@@ -1,9 +1,5 @@
 .DS_Store
 Thumbs.db
-.streamlit/secrets.toml
-.streamlit/secrets.toml~
-.streamlit/credentials.toml
-.streamlit/credentials.toml~
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
