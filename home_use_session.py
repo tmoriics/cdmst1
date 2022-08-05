@@ -34,7 +34,6 @@
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     8/ 5 Trying session state still
 #     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまっている
-#     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまうのでSessionはずしておく。
 #
 
 ###
@@ -596,7 +595,7 @@ def main():
     graph_background_color = "#EEFFEE"
     # graph_background_color = st.sidebar.color_picker('Graph background color', value='#EEFFEE')
     # display_recognized_image = False
-    display_recognized_image = st.sidebar.checkbox('Display recognized image(s)', value=True)
+    display_recognized_image = st.sidebar.checkbox('Display recognized image(s)')
 
     
     ###
@@ -780,16 +779,23 @@ def main():
       ri = st.radio("日誌画像をアップロードしてください。スマホカメラでいま撮影しても構いません。",
                     ('画像ファイル(JPG)', 'カメラ撮影', 'ファイル(XLSX)'),
                     horizontal=True)
-      if ri == 'ファイル(XLSX)':
+      if 'uploaded' not in st.session_state:
+        if ri == 'ファイル(XLSX)':
             uploaded_xlsx_file = upload_xlsx_file_func()
             if uploaded_xlsx_file is not None:
                 st.success('日誌データが登録されました。')
                 ocr_data_df = pd.read_excel(uploaded_xlsx_file, sheet_name=0, index_col=None)
+                if 'uploaded' not in st.session_state:
+                    st.session_state.uploaded = True
+                    st.session_state.last_uploaded = datetime.time(0, 0)
+                    st.session_state.ocr_data_df = ocr_data_df
+                    ##### WIP 20220805T1900 とりあえず読み込み推奨サンプル画像をわりあててしまう
+                    st.session_state.jpg_tmp_file = form1_sample1_image
             else:
                 st.write('このような日誌データ（XLSX形式。排尿回数13回以下）をアップロードしてください。')
-                st.image(form1_sample1_xlsx_image, caption='日誌例', width=3600)
+                st.image(form1_sample1_xlsx_image, caption='日誌例', width=480)
                 st.stop()
-      elif ri == '画像ファイル(PDF)':
+        elif ri == '画像ファイル(PDF)':
             uploaded_pdf_file = upload_pdf_file_func()
             if uploaded_pdf_file is not None:
                 # uploaded_pdf_file is a file-like.
@@ -811,11 +817,16 @@ def main():
                 ### with しないならCLOSE()すべきだがwithしてるので不要。
                 st.write("filename: ", uploaded_pdf_file.name)
                 ocr_data_df = get_ocr_dataframe_from_pdf_file(pdf_tmp_file.name, diary_id, diary_date, diary_page, diary_first_date)
+                if 'uploaded' not in st.session_state:
+                    st.session_state.uploaded = True
+                    st.session_state.last_uploaded = datetime.time(0, 0)
+                    st.session_state.ocr_data_df = ocr_data_df
+                    st.session_state.jpg_tmp_file = jpg_tmp_file
             else: 
                 st.write('このような日誌画像をアップロードしてください。')
                 st.image(form1_sample1_image, caption='日誌画像例', width=120)
                 st.stop()
-      # elif ri == '画像ファイル(JPG)':
+        # elif ri == '画像ファイル(JPG)':
             ##########################################################
             # WIP
             # JPGが複数ページのときに対応しないとならない
@@ -834,8 +845,13 @@ def main():
             #             # if dummy data
             #             # ocr_data_df[i] = pd.read_csv("data/urination_data_sample1.csv")
             #             ocr_data_df[i] = get_ocr_dataframe_from_jpg_file(uploaded_file.name, diary_id, diary_date, diary_page, diary_first_date)
+            #                if 'uploaded' not in st.session_state:
+            #        st.session_state.uploaded = True
+            #        st.session_state.last_uploaded = datetime.time(0, 0)
+            #        st.session_state.ocr_data_df = ocr_data_df
+            #        st.session_state.jpg_tmp_file = jpg_tmp_file ##### WIP #####
             ##########################################################
-      elif ri == '画像ファイル(JPG)':
+        elif ri == '画像ファイル(JPG)':
             uploaded_jpg_file = upload_jpg_file_func()
             if uploaded_jpg_file is not None:
                 # uploaded_jpg_file is a file-like.
@@ -894,6 +910,11 @@ def main():
                 ##### if dummy data
                 #####ocr_data_df = pd.read_csv("data/urination_data_sample1.csv")
                 ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name, diary_id, diary_date, diary_page, diary_first_date)
+                if 'uploaded' not in st.session_state:
+                    st.session_state.uploaded = True
+                    st.session_state.last_uploaded = datetime.time(0, 0)
+                    st.session_state.ocr_data_df = ocr_data_df
+                    st.session_state.jpg_tmp_file = jpg_tmp_file
             else:
                 st.write('このような日誌画像(JPG)をアップロードしてください。')
                 w = form1_sample1_image.width
@@ -913,11 +934,11 @@ def main():
                                          width=48 )
                 st.image(form1_sample1_image, caption='日誌画像例', width=240)
                 st.stop()
-      else: # 'カメラ撮影'
+        else: # 'カメラ撮影'
             photo_file_buffer = take_photo_func()
-            #   camera_image = st.camera_input("Take a snapshot of today's diary")
-            #   if camera_image:
-            #       st.image(camera_image, caption='Taken diary snapshot')
+        #   camera_image = st.camera_input("Take a snapshot of today's diary")
+        #   if camera_image:
+        #       st.image(camera_image, caption='Taken diary snapshot')
             if photo_file_buffer is not None:
                 ##########
                 # photo_file_buffer is a file-like.
@@ -946,14 +967,23 @@ def main():
                                          file_name=jpg_fn,
                                          mime="image/jpg")
                 ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name, diary_id, diary_date, diary_first_date)
+                if 'uploaded' not in st.session_state:
+                    st.session_state.uploaded = True
+                    st.session_state.last_uploaded = datetime.time(0, 0)
+                    st.session_state.ocr_data_df = ocr_data_df
+                    st.session_state.jpg_tmp_file = jpg_tmp_file
             else:
                 st.write('このような日誌画像を縦長で撮影してください。')
                 st.image(form1_sample1_image, caption='日誌画像例', width=256)
                 st.stop()
-
+      else:
+        ocr_data_df = st.session_state.ocr_data_df
+        jpg_tmp_file = st.session_state.jpg_tmp_file
     # ei.empty()
     # if st.button("アップロードのやり直し"):
     #   st.experimental_memo.clear()
+    #   del st.session_state['uploaded']
+    
     
     ###
     # Diary recognition
@@ -1189,7 +1219,7 @@ def main():
         if display_recognized_image:
             st.subheader("画像（読み取り結果）")
             if ri == '画像ファイル(JPG)':
-                st.image(timgs_ocr, caption='認識された日誌画像', width=480)
+                st.image(timgs_ocr, caption='認識された日誌画像', width=240)
                 with open(ocr_png_tmp_file.name, "rb") as ocr_file:
                     btn = st.download_button(label="Download the recognized image in PNG format",
                                              data=ocr_file,
@@ -1225,11 +1255,10 @@ def main():
         ocr_urination_data_csv = convert_df_to_csv(ocr_urination_data_df)
         # ocr_urination_data_csv_fn = "ocr_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ocr_urination_data_csv_fn = "ocr_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-################### WIP temporary HIDE HIDDEN
-#        st.download_button(label="Download OCR diary document as CSV",
-#                           data=ocr_urination_data_csv,
-#                           file_name=ocr_urination_data_csv_fn,
-#                           mime='text/csv')
+        st.download_button(label="Download OCR diary document as CSV",
+                           data=ocr_urination_data_csv,
+                           file_name=ocr_urination_data_csv_fn,
+                           mime='text/csv')
 
         ###
         # Recognized image(s) display
@@ -1328,20 +1357,18 @@ def main():
                        # enable_enterprise_modules=True,
                        allow_unsafe_jscode=True,
                        update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,)
-        
-################### WIP temporary HIDE HIDDEN
         #
         # Downloadable edited document preparation Type B
-#       ud_df2 = ud_gd['data']
-#       # Downloadable edited document Type B 
-#       ud_df2_csv = convert_df_to_csv(ud_df2)
-#       # ud_df2_csv_fn = "gd_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
-#       ud_df2_csv_fn = "gd_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-#       # st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
-#       st.download_button(label="Download edited data as CSV",
-#                           data=ud_df2_csv,
-#                           file_name=ud_df2_csv_fn,
-#                           mime='text/csv')
+        ud_df2 = ud_gd['data']
+        # Downloadable edited document Type B 
+        ud_df2_csv = convert_df_to_csv(ud_df2)
+        # ud_df2_csv_fn = "gd_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
+        ud_df2_csv_fn = "gd_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
+        # st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
+        st.download_button(label="Download edited data as CSV",
+                           data=ud_df2_csv,
+                           file_name=ud_df2_csv_fn,
+                           mime='text/csv')
 
         #
         # plotly graph
