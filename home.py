@@ -28,8 +28,11 @@
 # 2022-08-05T14:59 sttest2 ダウンロードのたびにAPIアクセスに行く問題解説
 # 2022-08-05T14:59 sttest2 
 # 2022-08-05T16:25 cdmst1
-#     8/ 5 Trying session state still
+# 2022-08-05T19:20 cdmst1
+########## WIP
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
+#     8/ 5 Trying session state still
+#     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまっている
 #
 
 ###
@@ -581,7 +584,7 @@ def main():
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
-    st.text('Copyright (c) 2022 tmoriics (2022-08-05T16:25)')
+    st.text('Copyright (c) 2022 tmoriics (2022-08-05T19:20)')
 
     ###
     # Setting by the sidebar
@@ -783,6 +786,8 @@ def main():
                     st.session_state.uploaded = True
                     st.session_state.last_uploaded = datetime.time(0, 0)
                     st.session_state.ocr_data_df = ocr_data_df
+                    ##### WIP 20220805T1900 とりあえず読み込み推奨サンプル画像をわりあててしまう
+                    st.session_state.jpg_tmp_file = form1_sample1_image
             else:
                 st.write('このような日誌データ（XLSX形式。排尿回数13回以下）をアップロードしてください。')
                 st.image(form1_sample1_xlsx_image, caption='日誌例', width=480)
