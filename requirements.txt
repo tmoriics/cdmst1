@@ -1,0 +1,12 @@
+numpy
+matplotlib
+pandas
+Pillow
+seaborn
+altair
+xlrd
+openpyxl
+streamlit
+requests
+plotly
+streamlit-aggrid
