@@ -30,6 +30,7 @@
 # 2022-08-05T16:25 cdmst1
 # 2022-08-05T19:20 cdmst1
 # 2022-08-05T22:30 cdmst1 templateIds:[8851]
+# 2022-08-06T19:30 cdmst1 checkbox handling
 ########## WIP
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     8/ 5 Trying session state still
@@ -588,7 +589,7 @@ def main():
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
-    st.text('Copyright (c) 2022 tmoriics (2022-08-05T22:30)')
+    st.text('Copyright (c) 2022 tmoriics (2022-08-06T19:30)')
 
     ###
     # Setting by the sidebar
@@ -966,9 +967,49 @@ def main():
     # ocr_urination_data_df = pd.read_csv("data/urination_data_sample1.csv")
     # ocr_urination_data_df = pd.read_excel('./input/'+str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.xlsx', index_col=None)
     # Actual OCR
-    # Had been done already in image upload routine.
-    ocr_urination_data_df = ocr_data_df
-
+    # Had been done already in image upload routine. so Create ocr_urination_data_df from ocr_data_df
+    # ocr_urination_data_dfを8列版，ocr_data_dfを14列版とする
+    ocr_urination_data_df = ocr_data_df.copy()
+    ocr_urination_data_df['もれ'] = '無・少量・中量・多量'
+    ocr_urination_data_df['尿意'] = '有・無'
+    ocr_urination_data_df['切迫感'] = '有・無'
+    ocr_urination_data_df['残尿感'] = '無・少量・中量・多量'
+    for index, row in ocr_urination_data_df.iterrows():
+        if row['もれ無し'] == '無':
+            row['もれ'] = '無'
+        elif row['もれ少量'] == '少量':
+            row['もれ'] = '少量'
+        elif row['もれ中量'] == '中量':
+            row['もれ'] = '中量'
+        elif row['もれ多量'] == '多量':
+            row['もれ'] = '多量'
+        else:
+            row['もれ'] = '無・少量・中量・多量'
+            
+        if row['尿意有り'] == '有':
+            row['尿意'] = '有'
+        elif row['尿意無し'] == '無':
+            row['尿意'] = '無'
+        else:
+            row['尿意'] = '有・無'
+            
+        if row['切迫感有り'] == '有':
+            row['切迫感'] = '有'
+        elif row['切迫感無し'] == '無':
+            row['切迫感'] = '無'
+        else:
+            row['切迫感'] = '有・無'
+            
+        if row['残尿感有り'] == '有':
+            row['残尿感'] = '有'
+        elif row['残尿感無し'] == '無':
+            row['残尿感'] = '無'
+        else:
+            row['残尿感'] = '有・無'
+    #
+    # Drop some temporal columns
+    ocr_urination_data_df.drop(columns=['もれ無し', 'もれ少量', 'もれ中量', 'もれ多量', '尿意有り', '尿意無し', '切迫感有り', '切迫感無し', '残尿感有り', '残尿感無し'], inplace=True)
+    
     ###
     ### Image with recognized frames by OCR
     ### 
@@ -1011,7 +1052,6 @@ def main():
     else:
         timgs_ocr_fn = "ocr_"+str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.png'
 
-
     ###
     # Diary document csv
     ###
@@ -1020,13 +1060,13 @@ def main():
     ocr_urination_data_csv_fn = "ocr_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
     ###### WIP TODO with open("./output/"+ocr_urination_data_csv_fn, "wb") as f:
     ###### WIP TODO     f.write(ocr_urination_data_csv)
-        
     
     ###
     ###
     ###
-    # df creation from ocr df by deep copy 
-    urination_data_df = ocr_urination_data_df.copy()
+    # df creation from ocr_data_df (not ocr_urination_data_df) by deep copy
+    urination_data_df = ocr_data_df.copy() # ocr_data_dfの14列版から作ることに注意
+
     # for check
     # st.write(urination_data_df)
 
@@ -1051,6 +1091,8 @@ def main():
     urination_data_df['排尿量'].replace('', np.nan, inplace=True)
     urination_data_df['micturition'] = urination_data_df['排尿量'].astype(float)
     # urination_data_df['catheterization'] = urination_data_df['導尿量'].astype(float)
+    urination_data_df['memo'] = urination_data_df['メモ']
+    
     urination_data_df['no_leakage'] = [True if b ==
                                        '無' else False for b in urination_data_df['もれ無し']]
     urination_data_df['leakage'] = [1.0 if b !=
@@ -1064,7 +1106,41 @@ def main():
                                     '有' else False for b in urination_data_df['切迫感有り']]
     urination_data_df['remaining'] = [True if b ==
                                       '有' else False for b in urination_data_df['残尿感有り']]
-    urination_data_df['memo'] = urination_data_df['メモ']
+    for index, row in urination_data_df.iterrows():
+        if row['もれ無し'] == '無':
+            row['no_leakage'] = True
+        elif row['もれ無し'] == '有':
+            row['no_leakage'] = False
+        else:
+            row['no_leakage'] = False
+        if row['もれ無し'] == '無':
+            row['leakage'] = 0.0
+        elif row['もれ少量'] == '少量':
+            row['leakage'] = 1.0
+        elif row['もれ中量'] == '中量':
+            row['leakage'] = 2.0
+        elif row['もれ多量'] == '多量':
+            row['leakage'] = 3.0
+        else:
+            row['leakage'] = np.nan
+        if row['尿意有り'] == '有':
+            row['desire'] = True
+        elif row['尿意無し'] == '無':
+            row['desire'] = False
+        else:
+            row['desire'] = True
+        if row['切迫感有り'] == '有':
+            row['urgency'] = True
+        elif row['切迫感無し'] == '無':
+            row['urgency'] = False
+        else:
+            row['urgency'] = False
+        if row['残尿感有り'] == '有':
+            row['remaining'] = True
+        elif row['残尿感無し'] == '無':
+            row['remaining'] = False
+        else:
+            row['remaining'] = False
     # for check
     # print(urination_data_df[['year', 'month', 'day', 'hour', 'minute']])
     urination_data_df['datetime_tmp'] = pd.to_datetime(
@@ -1076,7 +1152,7 @@ def main():
     # print(urination_data_df['datetime_tmp_after_check'])
     
     #
-    # COPY
+    # datetime tmp COPY
     urination_data_df['datetime'] = urination_data_df['datetime_tmp']
     
     #
