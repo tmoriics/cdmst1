@@ -31,7 +31,7 @@
 # 2022-08-05T19:20 cdmst1
 # 2022-08-05T22:30 cdmst1 templateIds:[8851]
 # 2022-08-06T19:30 cdmst1 checkbox handling
-# 2022-08-06T20:30 cdmst1 heroku22
+# 2022-08-06T20:30 cdmst1 heroku-22
 ########## WIP
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     8/ 5 Trying session state still
@@ -87,9 +87,9 @@ from st_aggrid.shared import GridUpdateMode, JsCode
 # Locale
 ###
 # locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # WORKED in mac for months. No good on Docker
-# locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
+locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
 # locale.setlocale(locale.LC_ALL, 'ja_JP.UTF-8') # No good on Heroku
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
+# locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
 
 ###
 # Timezone
