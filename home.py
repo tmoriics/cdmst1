@@ -32,6 +32,7 @@
 # 2022-08-05T22:30 cdmst1 templateIds:[8851]
 # 2022-08-06T19:30 cdmst1 checkbox handling
 # 2022-08-06T20:30 cdmst1 heroku-22
+# 2022-08-06T21:00 cdmst1 order of df columns
 ########## WIP
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     8/ 5 Trying session state still
@@ -87,9 +88,9 @@ from st_aggrid.shared import GridUpdateMode, JsCode
 # Locale
 ###
 # locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # WORKED in mac for months. No good on Docker
-locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
+# locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
 # locale.setlocale(locale.LC_ALL, 'ja_JP.UTF-8') # No good on Heroku
-# locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
 
 ###
 # Timezone
@@ -281,7 +282,8 @@ def get_ocr_dataframe_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diar
        ocr_text_df.loc[ocr_text_df.index[ii], '切迫感無し'] = ocr_infertext_df['inferText'][12+ii*14]
        ocr_text_df.loc[ocr_text_df.index[ii], '残尿感有り'] = ocr_infertext_df['inferText'][13+ii*14]
        ocr_text_df.loc[ocr_text_df.index[ii], '残尿感無し'] = ocr_infertext_df['inferText'][14+ii*14]
-       ocr_text_df.loc[ocr_text_df.index[ii], 'メモ'] = ocr_infertext_df['inferText'][15+ii*14]
+       # メモ特別扱いのため
+       ocr_text_df.loc[ocr_text_df.index[ii], 'メモ欄'] = ocr_infertext_df['inferText'][15+ii*14]
 
    # for debug
    # ocr_text_df_fn = "ocr_text_df" + str(diaryid)+"_"+diaryfirstdate.strftime('%m%d')+'_p'+str(diarypage)+'.csv
@@ -425,7 +427,8 @@ def get_ocr_dataframe_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diar
         ocr_text_df.loc[ocr_text_df.index[ii], '切迫感無し'] = ocr_infertext_df['inferText'][12+ii*14]
         ocr_text_df.loc[ocr_text_df.index[ii], '残尿感有り'] = ocr_infertext_df['inferText'][13+ii*14]
         ocr_text_df.loc[ocr_text_df.index[ii], '残尿感無し'] = ocr_infertext_df['inferText'][14+ii*14]
-        ocr_text_df.loc[ocr_text_df.index[ii], 'メモ'] = ocr_infertext_df['inferText'][15+ii*14]
+       # メモ特別扱いのため
+       ocr_text_df.loc[ocr_text_df.index[ii], 'メモ欄'] = ocr_infertext_df['inferText'][15+ii*14]
 
     # for debug
     # ocr_text_df_fn = "ocr_text_df" + str(diaryid)+"_"+diaryfirstdate.strftime('%m%d')+'_p'+str(diarypage)+'.csv
@@ -590,7 +593,7 @@ def main():
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期） on heroku-22')
-    st.text('Copyright (c) 2022 tmoriics (2022-08-06T20:30)')
+    st.text('Copyright (c) 2022 tmoriics (2022-08-06T21:00)')
 
     ###
     # Setting by the sidebar
@@ -975,6 +978,7 @@ def main():
     ocr_urination_data_df['尿意'] = '有・無'
     ocr_urination_data_df['切迫感'] = '有・無'
     ocr_urination_data_df['残尿感'] = '無・少量・中量・多量'
+    ocr_urination_data_df['メモ'] = ocr_urination_data_df['メモ欄']
     for index, row in ocr_urination_data_df.iterrows():
         if row['もれ無し'] == '無':
             row['もれ'] = '無'
@@ -1009,7 +1013,7 @@ def main():
             row['残尿感'] = '有・無'
     #
     # Drop some temporal columns
-    ocr_urination_data_df.drop(columns=['もれ無し', 'もれ少量', 'もれ中量', 'もれ多量', '尿意有り', '尿意無し', '切迫感有り', '切迫感無し', '残尿感有り', '残尿感無し'], inplace=True)
+    ocr_urination_data_df.drop(columns=['もれ無し', 'もれ少量', 'もれ中量', 'もれ多量', '尿意有り', '尿意無し', '切迫感有り', '切迫感無し', '残尿感有り', '残尿感無し', 'メモ欄'], inplace=True)
     
     ###
     ### Image with recognized frames by OCR
@@ -1067,6 +1071,8 @@ def main():
     ###
     # df creation from ocr_data_df (not ocr_urination_data_df) by deep copy
     urination_data_df = ocr_data_df.copy() # ocr_data_dfの14列版から作ることに注意
+    urination_data_df['メモ'] = urination_data_df['メモ欄']
+    urination_data_df.drop(columns=['メモ欄'], inplace=True)
 
     # for check
     # st.write(urination_data_df)
@@ -1092,8 +1098,6 @@ def main():
     urination_data_df['排尿量'].replace('', np.nan, inplace=True)
     urination_data_df['micturition'] = urination_data_df['排尿量'].astype(float)
     # urination_data_df['catheterization'] = urination_data_df['導尿量'].astype(float)
-    urination_data_df['memo'] = urination_data_df['メモ']
-    
     urination_data_df['no_leakage'] = [True if b ==
                                        '無' else False for b in urination_data_df['もれ無し']]
     urination_data_df['leakage'] = [1.0 if b !=
@@ -1107,6 +1111,7 @@ def main():
                                     '有' else False for b in urination_data_df['切迫感有り']]
     urination_data_df['remaining'] = [True if b ==
                                       '有' else False for b in urination_data_df['残尿感有り']]
+    urination_data_df['memo'] = urination_data_df['メモ']
     for index, row in urination_data_df.iterrows():
         if row['もれ無し'] == '無':
             row['no_leakage'] = True
@@ -1325,6 +1330,8 @@ def main():
                                                      '切迫感有り', '切迫感無し',
                                                      '残尿感有り', '残尿感無し',
                                                      'メモ'])
+        # CDCONV2 format
+        # ud_df1_tmp = urination_data_df.drop(columns=['時', '分'])
         # CDCONV1 format
         # ud_df1_tmp = urination_data_df.drop(columns=['時', '分',
         #                                             'micturition',
