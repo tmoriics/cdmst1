@@ -429,8 +429,8 @@ def get_ocr_dataframe_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diar
         ocr_text_df.loc[ocr_text_df.index[ii], '切迫感無し'] = ocr_infertext_df['inferText'][12+ii*14]
         ocr_text_df.loc[ocr_text_df.index[ii], '残尿感有り'] = ocr_infertext_df['inferText'][13+ii*14]
         ocr_text_df.loc[ocr_text_df.index[ii], '残尿感無し'] = ocr_infertext_df['inferText'][14+ii*14]
-       # メモ特別扱いのため
-       ocr_text_df.loc[ocr_text_df.index[ii], 'メモ欄'] = ocr_infertext_df['inferText'][15+ii*14]
+        # メモ特別扱いのため
+        ocr_text_df.loc[ocr_text_df.index[ii], 'メモ欄'] = ocr_infertext_df['inferText'][15+ii*14]
 
     # for debug
     # ocr_text_df_fn = "ocr_text_df" + str(diaryid)+"_"+diaryfirstdate.strftime('%m%d')+'_p'+str(diarypage)+'.csv
