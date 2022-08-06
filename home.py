@@ -589,7 +589,7 @@ def main():
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
-    st.text('Copyright (c) 2022 tmoriics (2022-08-05T22:30)')
+    st.text('Copyright (c) 2022 tmoriics (2022-08-06T19:30)')
 
     ###
     # Setting by the sidebar
