@@ -11,7 +11,7 @@ enableCORS = false
 
 [theme]
 primaryColor='#F63366'
-backgroundColor='#88EEAA'
+backgroundColor='#88EE558'
 secondaryBackgroundColor='#F0F2F6'
 textColor='#262730'
 font='sans serif'
