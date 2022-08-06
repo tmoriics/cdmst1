@@ -33,6 +33,7 @@
 # 2022-08-06T19:30 cdmst1 checkbox handling
 # 2022-08-06T20:30 cdmst1 heroku-22
 # 2022-08-06T21:00 cdmst1 order of df columns
+# 2022-08-06T23:40 cdmst1 order of MEMO cannot be easily changed
 ########## WIP
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     8/ 5 Trying session state still
@@ -594,8 +595,8 @@ def main():
       </style>
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
-    st.title('排尿日誌マネージャー（産褥期） on heroku-22')
-    st.text('Copyright (c) 2022 tmoriics (2022-08-06T21:00)')
+    st.title('排尿日誌マネージャー（産褥期）')
+    st.text('Copyright (c) 2022 tmoriics (2022-08-06T23:40)')
 
     ###
     # Setting by the sidebar
