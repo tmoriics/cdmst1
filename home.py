@@ -258,6 +258,7 @@ def get_ocr_dataframe_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diar
 
    for i, itext in enumerate(dic_inferTexts):
        dic_inferTexts[i] = format_text(itext)
+       
    ocr_infertext_df = pd.DataFrame(np.arange(13*14+2), columns = ['inferText'])
    for i in range(0, 2+14*13):
        ocr_infertext_df['inferText'][i] = dic_inferTexts[i]
@@ -266,6 +267,7 @@ def get_ocr_dataframe_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diar
    mylogger.info('from OCR: month='+str(month))
    day  = ocr_infertext_df['inferText'][1]
    mylogger.info('from OCR: day='+ str(day))
+   
    ocr_text_df = pd.DataFrame(np.arange(13*14).reshape(13, 14),
                               columns = ['時', '分', '排尿量', 'もれ無し', 'もれ少量', 'もれ中量', 'もれ多量', '尿意有り', '尿意無し','切迫感有り','切迫感無し', '残尿感有り', '残尿感無し', 'メモ'])
    for ii in range(0, 13):
@@ -401,6 +403,7 @@ def get_ocr_dataframe_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diar
 
     for i, itext in enumerate(dic_inferTexts):
         dic_inferTexts[i] = format_text(itext)
+        
     ocr_infertext_df = pd.DataFrame(np.arange(13*14+2), columns = ['inferText'])
     for i in range(0, 2+14*13):
         ocr_infertext_df['inferText'][i] = dic_inferTexts[i]
@@ -412,7 +415,6 @@ def get_ocr_dataframe_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diar
 
     ocr_text_df = pd.DataFrame(np.arange(13*14).reshape(13, 14),
                                columns = ['時', '分', '排尿量', 'もれ無し', 'もれ少量', 'もれ中量', 'もれ多量', '尿意有り', '尿意無し','切迫感有り','切迫感無し', '残尿感有り', '残尿感無し', 'メモ'])
-
     for ii in range(0, 13):
         ocr_text_df.loc[ocr_text_df.index[ii], '時'] = ocr_infertext_df['inferText'][2+ii*14]
         ocr_text_df.loc[ocr_text_df.index[ii], '分'] = ocr_infertext_df['inferText'][3+ii*14]
@@ -977,7 +979,7 @@ def main():
     ocr_urination_data_df['もれ'] = '無・少量・中量・多量'
     ocr_urination_data_df['尿意'] = '有・無'
     ocr_urination_data_df['切迫感'] = '有・無'
-    ocr_urination_data_df['残尿感'] = '無・少量・中量・多量'
+    ocr_urination_data_df['残尿感'] = '有・無'
     ocr_urination_data_df['メモ'] = ocr_urination_data_df['メモ欄']
     for index, row in ocr_urination_data_df.iterrows():
         if row['もれ無し'] == '無':
@@ -1112,6 +1114,18 @@ def main():
     urination_data_df['remaining'] = [True if b ==
                                       '有' else False for b in urination_data_df['残尿感有り']]
     urination_data_df['memo'] = urination_data_df['メモ']
+    # for check
+    # print(urination_data_df[['year', 'month', 'day', 'hour', 'minute']])
+    urination_data_df['datetime_tmp'] = pd.to_datetime(
+        urination_data_df[['year', 'month', 'day', 'hour', 'minute']]).dt.tz_localize('Asia/Tokyo')
+    #####  COERCE  urination_data_df[['year', 'month', 'day', 'hour', 'minute']], errors='coerce')
+    urination_data_df['datetime_tmp_before'] = urination_data_df['datetime_tmp'].shift(1)
+    urination_data_df['datetime_tmp_after_check'] = urination_data_df['datetime_tmp'] > urination_data_df['datetime_tmp_before']
+    # for check
+    # print(urination_data_df['datetime_tmp_after_check'])
+    # datetime tmp COPY
+    urination_data_df['datetime'] = urination_data_df['datetime_tmp']
+
     for index, row in urination_data_df.iterrows():
         if row['もれ無し'] == '無':
             row['no_leakage'] = True
@@ -1147,19 +1161,7 @@ def main():
             row['remaining'] = False
         else:
             row['remaining'] = False
-    # for check
-    # print(urination_data_df[['year', 'month', 'day', 'hour', 'minute']])
-    urination_data_df['datetime_tmp'] = pd.to_datetime(
-        urination_data_df[['year', 'month', 'day', 'hour', 'minute']]).dt.tz_localize('Asia/Tokyo')
-    #####  COERCE  urination_data_df[['year', 'month', 'day', 'hour', 'minute']], errors='coerce')
-    urination_data_df['datetime_tmp_before'] = urination_data_df['datetime_tmp'].shift(1)
-    urination_data_df['datetime_tmp_after_check'] = urination_data_df['datetime_tmp'] > urination_data_df['datetime_tmp_before']
-    # for check
-    # print(urination_data_df['datetime_tmp_after_check'])
     
-    #
-    # datetime tmp COPY
-    urination_data_df['datetime'] = urination_data_df['datetime_tmp']
     
     #
     # After midnight adjustment
