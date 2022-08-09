@@ -90,9 +90,9 @@ from st_aggrid.shared import GridUpdateMode, JsCode
 # Locale
 ###
 # locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # WORKED in mac for months. No good on Docker
-# locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
+locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
 # locale.setlocale(locale.LC_ALL, 'ja_JP.UTF-8') # No good on Heroku
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
+# locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
 
 ###
 # Timezone
