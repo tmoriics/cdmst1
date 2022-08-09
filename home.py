@@ -40,7 +40,7 @@
 #     8/ 5 Trying session state still
 #     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまっている
 #     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまうのでSessionはずしておく。
-
+#
 
 ###
 # Imports
@@ -90,9 +90,9 @@ from st_aggrid.shared import GridUpdateMode, JsCode
 # Locale
 ###
 # locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # WORKED in mac for months. No good on Docker
-locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
+# locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
 # locale.setlocale(locale.LC_ALL, 'ja_JP.UTF-8') # No good on Heroku
-# locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
 
 ###
 # Timezone
@@ -1494,16 +1494,17 @@ def main():
     with ind_e.container():
         st.header('排尿関連指標：')
 
-        ########## 2022/8/9に変更。起床後初回排尿以降を「一日」とみなす。 start
         if first_after_bed_found == True:
             first_sleep_time = (first_after_bed_datetime -
                                 bed_datetime).total_seconds() / 60
         else:
             first_sleep_time = 0
+        ########## 2022/8/9に変更。起床後初回排尿以降を「一日」とみなす。 start
         number_of_urination = len(urination_data_df[ (urination_data_df['time_phase'] == 'first_after_wakeup') | (urination_data_df['time_phase'] == 'day_time') | (urination_data_df['time_phase'] == 'after_bed') ])
         number_of_daytime_urination = len(
             urination_data_df[ (urination_data_df['time_phase'] == 'first_after_wakeup') | (urination_data_df['time_phase'] == 'day_time')])
         number_of_nocturnal_urination = len(urination_data_df[ urination_data_df['time_phase'] == 'after_bed'] )
+        ########## 2022/8/9に変更。起床後初回排尿以降を「一日」とみなす。 end
         
         daytime_urination_volume = urination_data_df[urination_data_df['time_phase'] == 'day_time'].micturition.sum(
         )
@@ -1524,14 +1525,13 @@ def main():
             urination_volume_per_cycle = 0
 
         minimum_single_urination_volume = urination_data_df[(urination_data_df['time_phase'] == 'after_bed') | (
-            urination_data_df['time_phase'] == 'first_after_wakeup') | (urination_data_df['time_phase'] == 'day_time')].micturition.min()
+            urination_data_df['time_phase'] == 'first_after_next_wakeup') | (urination_data_df['time_phase'] == 'day_time')].micturition.min()
         maximum_single_urination_volume = urination_data_df[(urination_data_df['time_phase'] == 'after_bed') | (
-            urination_data_df['time_phase'] == 'first_after_wakeup') | (urination_data_df['time_phase'] == 'day_time')].micturition.max()
+            urination_data_df['time_phase'] == 'first_after_next_wakeup') | (urination_data_df['time_phase'] == 'day_time')].micturition.max()
         minimum_single_nocturnal_urination_volume = urination_data_df[(urination_data_df['time_phase'] == 'after_bed') | (
             urination_data_df['time_phase'] == 'first_after_next_wakeup')].micturition.min()
         maximum_single_nocturnal_urination_volume = urination_data_df[(urination_data_df['time_phase'] == 'after_bed') | (
             urination_data_df['time_phase'] == 'first_after_next_wakeup')].micturition.max()
-        ########## 2022/8/9に変更。起床後初回排尿以降を「一日」とみなす。 end
 
         average_urination_interval = urination_data_df.mean(
             numeric_only=True).time_difference
