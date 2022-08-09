@@ -35,6 +35,7 @@
 # 2022-08-06T21:00 cdmst1 order of df columns
 # 2022-08-06T23:40 cdmst1 order of MEMO cannot be easily changed
 # 2022-08-09T18:40 cdmst1 changed indices calculation
+# 2022-08-09T21:42 cdmst1 changed drop 
 ########## WIP
 #     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     8/ 5 Trying session state still
@@ -1127,6 +1128,9 @@ def main():
     # print(urination_data_df['datetime_tmp_after_check'])
     # datetime tmp COPY
     urination_data_df['datetime'] = urination_data_df['datetime_tmp']
+    # erase line without datetime
+    urination_data_df_tmp = urination_data_df.copy()
+    urination_data_df = urination_data_df_tmp.dropna(subset=['datetime'])
 
     for index, row in urination_data_df.iterrows():
         if row['もれ無し'] == '無':
