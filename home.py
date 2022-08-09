@@ -40,7 +40,7 @@
 #     8/ 5 Trying session state still
 #     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまっている
 #     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまうのでSessionはずしておく。
-#
+
 
 ###
 # Imports
