@@ -161,7 +161,7 @@ def set_logger(name=None):
 ###
 # Secret get ocr json from a jpeg file
 ###
-@st.experimental_memo 
+@st.cache_data 
 def get_ocr_json_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diaryfirstdate):
     api_url = os.environ.get('CLOVA_API_URL')
     secret_key = os.environ.get('CLOVA_SECRET_KEY')
@@ -225,7 +225,7 @@ def get_ocr_json_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diaryfirs
 ###
 # Get ocr text from a jpg file through json
 ###
-@st.experimental_memo 
+@st.cache_data 
 def get_ocr_dataframe_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diaryfirstdate):
    res_json = get_ocr_json_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diaryfirstdate)
    df_res = res_json
@@ -305,7 +305,7 @@ def get_ocr_dataframe_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diar
 # Secret get ocr json from a pdf file
 ###
 ########## WIP# OCRテキスト取得  PDFは一回１０枚までなのでそれに対応する処理が本当は必要。今は１ページ想定。
-@st.experimental_memo 
+@st.cache_data 
 def get_ocr_json_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diaryfirstdate):
     api_url = os.environ.get('CLOVA_API_URL')
     secret_key = os.environ.get('CLOVA_SECRET_KEY')
@@ -369,7 +369,7 @@ def get_ocr_json_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diaryfirs
 ###
 # Get ocr dataframe from a pdf file through json
 ###
-@st.experimental_memo 
+@st.cache_data 
 def get_ocr_dataframe_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diaryfirstdate):
     res_json = get_ocr_json_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diaryfirstdate)
     df_res = pd.read_json(res_json, orient='columns')
@@ -449,7 +449,7 @@ def get_ocr_dataframe_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diar
 ###
 ### Convert a DataFrame to JSON with force_ascii=False
 ###
-@st.experimental_memo 
+@st.cache_data 
 def convert_df_to_json(df):
     df_to_json = df.to_json(orient='columns',force_ascii=False)
     return df_to_json
@@ -457,7 +457,7 @@ def convert_df_to_json(df):
 
 ### Convert a DataFrame to CSV with utf-8-sig
 ###
-@st.experimental_memo 
+@st.cache_data 
 def convert_df_to_csv(df):
     df_to_cfv = df.to_csv().encode('utf-8-sig')
     return df_to_cfv
@@ -479,7 +479,7 @@ def format_text(intext):
 ###
 ### Load a single XLSX file
 ###
-# @st.experimental_memo(suppress_st_warning=True) # これを有効にすると読まなくなる，内部処理されてるのだろうから不要
+# @st.cache_data(suppress_st_warning=True) # これを有効にすると読まなくなる，内部処理されてるのだろうから不要
 def upload_xlsx_file_func():
     uploaded_xlsxfile = st.file_uploader("日誌のファイル(XLSX)を選んでください。",
                                           accept_multiple_files=False)
@@ -489,7 +489,7 @@ def upload_xlsx_file_func():
 ###
 ### Load a single PDF file
 ###
-# @st.experimental_memo(suppress_st_warning=True) # これを有効にすると読まなくなる，内部処理されてるのだろうから不要
+# @st.cache_data(suppress_st_warning=True) # これを有効にすると読まなくなる，内部処理されてるのだろうから不要
 # WIP 複数枚にまだ非対応
 def upload_pdf_file_func():
     uploaded_pdffile = st.file_uploader("日誌の画像PDFファイルを選んでください。",
@@ -520,7 +520,7 @@ def show_pdf(file_path:str):
 ### Load multiple JPG files
 ###
 # WIP 複数枚には非対応
-# @st.experimental_memo(suppress_st_warning=True) # 内部処理されてるのだろうから不要
+# @st.cache_data(suppress_st_warning=True) # 内部処理されてるのだろうから不要
 def upload_jpg_files_func():
     uploaded_jpgfiles = st.file_uploader("日誌のJPG画像を選んでください。",
                                          accept_multiple_files=True,
@@ -531,7 +531,7 @@ def upload_jpg_files_func():
 ###
 ### Load single JPG file
 ###
-# @st.experimental_memo(suppress_st_warning=True)  # 内部処理されてるのだろうから不要
+# @st.cache_data(suppress_st_warning=True)  # 内部処理されてるのだろうから不要
 def upload_jpg_file_func():
     uploaded_jpgfile = st.file_uploader("日誌のJPG画像を選んでください。",
                                          accept_multiple_files=False,
@@ -543,7 +543,7 @@ def upload_jpg_file_func():
 ### Take a photo by user's camera
 ###
 # WIP 複数枚には非対応
-# @st.experimental_memo(suppress_st_warning=True) # これを有効にすると読まなくなる，内部処理されてるのだろうから不要
+# @st.cache_data(suppress_st_warning=True) # これを有効にすると読まなくなる，内部処理されてるのだろうから不要
 def take_photo_func():
     # "Take a snapshot of today's diary"
     image_file_buffer = st.camera_input("日誌画像を撮影してください。")
@@ -966,7 +966,7 @@ def main():
 
     # ei.empty()
     # if st.button("アップロードのやり直し"):
-    #   st.experimental_memo.clear()
+    #   st.cache_data.clear()
     
     ###
     # Diary recognition
