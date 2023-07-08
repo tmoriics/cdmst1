@@ -1419,7 +1419,8 @@ def main():
         urination_data_gb.configure_column("datetime", type=["customeDateTimeFormat"],
                                            custom_format_string='yyyy-MM-dd HH:mm zzz')
         urination_data_gridOptions = urination_data_gb.build()
-        ud_gd = AgGrid(ud_df2_tmp, theme='blue',
+#       ud_gd = AgGrid(ud_df2_tmp, theme='blue',
+        ud_gd = AgGrid(ud_df2_tmp, theme='balham',
                        gridOptions=urination_data_gridOptions,
                        # enable_enterprise_modules=True,
                        allow_unsafe_jscode=True,
