@@ -36,11 +36,13 @@
 # 2022-08-06T23:40 cdmst1 order of MEMO cannot be easily changed
 # 2022-08-09T18:40 cdmst1 changed indices calculation
 # 2022-08-09T21:42 cdmst1 changed drop 
+# 2022-08-17T17:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
+# 2023-07-07T16:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 ########## WIP
-#     7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
-#     8/ 5 Trying session state still
-#     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまっている
-#     8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまうのでSessionはずしておく。
+#     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
+#     2022/8/ 5 Trying session state still
+#     2022/8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまっている
+#     2022/8/ 5 Sessionのせいで一人ごとにウェブ立ち上げ直しが必要になってしまうのでSessionはずしておく。
 #
 
 ###
@@ -91,9 +93,9 @@ from st_aggrid.shared import GridUpdateMode, JsCode
 # Locale
 ###
 # locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # WORKED in mac for months. No good on Docker
-locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
+# locale.setlocale(locale.LC_ALL, 'C.UTF-8')  # Not work on mac local. probably works on all machines and all docker
 # locale.setlocale(locale.LC_ALL, 'ja_JP.UTF-8') # No good on Heroku
-# locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8') # for mac
 
 ###
 # Timezone
@@ -170,7 +172,7 @@ def get_ocr_json_from_jpg_file(jpgfile, diaryid, diarydate, diarypage, diaryfirs
         "images": [
             {
                 "format": "jpg",
-                "templateIds": [8851],
+                "templateIds": [9037],
                 "name": name_str 
             }
         ],
@@ -314,7 +316,7 @@ def get_ocr_json_from_pdf_file(pdffile, diaryid, diarydate, diarypage, diaryfirs
         "images": [
             {
                 "format": "pdf",
-                "templateIds": [8851],
+                "templateIds": [9037],
                 "name": name_str 
             }
         ],
@@ -598,7 +600,8 @@ def main():
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
-    st.text('Copyright (c) 2022 tmoriics (2022-08-09T18:40)')
+    # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
+    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-08T11:47)')
 
     ###
     # Setting by the sidebar
@@ -1271,7 +1274,7 @@ def main():
     with rd_e.container():
         #
         # Recognized diary document display
-        st.header("日誌データ（認識結果）")
+#####   st.header("日誌データ（認識結果）")
 
         ##
         # OCR image(s) display
@@ -1279,7 +1282,8 @@ def main():
         if display_recognized_image:
             st.subheader("画像（読み取り結果）")
             if ri == '画像ファイル(JPG)':
-                st.image(timgs_ocr, caption='認識された日誌画像', width=480)
+#####                st.image(timgs_ocr, caption='認識された日誌画像', width=480)
+                st.image(timgs_ocr, caption='認識された日誌画像', width=240)
                 with open(ocr_png_tmp_file.name, "rb") as ocr_file:
                     btn = st.download_button(label="Download the recognized image in PNG format",
                                              data=ocr_file,
@@ -1306,10 +1310,10 @@ def main():
         ##
         # OCR diary doument csv
         ###
-        st.subheader("テーブル（読み取り結果）")
+#####        st.subheader("テーブル（読み取り結果）")
         #
         # OCR diary document csv by st.table
-        st.table(ocr_urination_data_df)
+#####        st.table(ocr_urination_data_df)
         #
         # Downloadable OCR diary document csv by st.table
         ocr_urination_data_csv = convert_df_to_csv(ocr_urination_data_df)
@@ -1355,17 +1359,17 @@ def main():
         ud_df1 = ud_df1_tmp.dropna(subset=['datetime'])
         #
         # Downloadable recognized document display Type A by st.table
-        st.table(ud_df1.style.highlight_max(axis=0))
+#####        st.table(ud_df1.style.highlight_max(axis=0))
         #
         # Downloadable recognized document CSV (=data CSV)
         ud_df1_csv = convert_df_to_csv(ud_df1)
         # ud_df1_csv_fn = "ud_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df1_csv_fn = "ud_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
         # st.subheader("日誌データ（認識結果）のCSV形式でのダウンロード")
-        st.download_button(label="Download recognized data as CSV",
-                           data=ud_df1_csv,
-                           file_name=ud_df1_csv_fn,
-                           mime='text/csv')
+#####        st.download_button(label="Download recognized data as CSV",
+#####                           data=ud_df1_csv,
+#####                           file_name=ud_df1_csv_fn,
+#####                           mime='text/csv')
                 
         ###
         # Downloadable editable document (=data) Type B

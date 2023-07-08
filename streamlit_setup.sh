@@ -11,8 +11,8 @@ enableCORS = false
 
 [theme]
 primaryColor='#F63366'
-backgroundColor='#88EE55'
-secondaryBackgroundColor='#E0F2C6'
+backgroundColor='#88EEAA'
+secondaryBackgroundColor='#F0F2F6'
 textColor='#262730'
 font='sans serif'
 " > ~/.streamlit/config.toml

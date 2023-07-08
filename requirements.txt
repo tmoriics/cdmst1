@@ -10,3 +10,4 @@ requests
 plotly
 streamlit
 streamlit-aggrid
+streamlit-lottie
