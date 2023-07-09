@@ -38,6 +38,7 @@
 # 2022-08-09T21:42 cdmst1 changed drop 
 # 2022-08-17T17:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-07T16:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
+# 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed. 
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     2022/8/ 5 Trying session state still
@@ -1359,17 +1360,17 @@ def main():
         ud_df1 = ud_df1_tmp.dropna(subset=['datetime'])
         #
         # Downloadable recognized document display Type A by st.table
-#####        st.table(ud_df1.style.highlight_max(axis=0))
+        st.table(ud_df1.style.highlight_max(axis=0))
         #
         # Downloadable recognized document CSV (=data CSV)
         ud_df1_csv = convert_df_to_csv(ud_df1)
         # ud_df1_csv_fn = "ud_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df1_csv_fn = "ud_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
         # st.subheader("日誌データ（認識結果）のCSV形式でのダウンロード")
-#####        st.download_button(label="Download recognized data as CSV",
-#####                           data=ud_df1_csv,
-#####                           file_name=ud_df1_csv_fn,
-#####                           mime='text/csv')
+        st.download_button(label="Download recognized data as CSV",
+                           data=ud_df1_csv,
+                           file_name=ud_df1_csv_fn,
+                           mime='text/csv')
                 
         ###
         # Downloadable editable document (=data) Type B
