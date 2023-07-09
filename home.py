@@ -38,7 +38,8 @@
 # 2022-08-09T21:42 cdmst1 changed drop 
 # 2022-08-17T17:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-07T16:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
-# 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed. 
+# 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
+#
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
 #     2022/8/ 5 Trying session state still
