@@ -961,7 +961,9 @@ def main():
                                              mime="image/jpg")
                     ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name,
                                                                   diary_id, diary_date, diary_first_date)
+                    st.write('Here1')
             else:
+                st.write('THere')
                 st.write('このような日誌画像を縦長で撮影してください。')
                 st.image(form1_sample1_image, caption='日誌画像例', width=256)
                 st.stop()
@@ -1025,9 +1027,7 @@ def main():
     ocr_urination_data_df['切迫感'] = '有・無'
     ocr_urination_data_df['残尿感'] = '有・無'
     ocr_urination_data_df['メモ'] = ocr_urination_data_df['メモ欄']
-    st.write('Here!')
-    st.write('Here!')
-    st.write('Here!')
+    st.write('Here2')
     for index, row in ocr_urination_data_df.iterrows():
         if row['もれ無し'] == '無':
             row['もれ'] = '無'
