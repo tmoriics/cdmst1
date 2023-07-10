@@ -39,6 +39,7 @@
 # 2022-08-17T17:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-07T16:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
+# 2023-07-10T16:18 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -603,7 +604,7 @@ def main():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
-    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-08T11:47)')
+    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-10T16:20)')
 
     ###
     # Setting by the sidebar
@@ -1312,19 +1313,19 @@ def main():
         ##
         # OCR diary doument csv
         ###
-        st.subheader("テーブル（読み取り結果）")
+        ########## st.subheader("テーブル（読み取り結果）")
         #
         # OCR diary document csv by st.table
-        st.table(ocr_urination_data_df)
+        ########## st.table(ocr_urination_data_df)
         #
         # Downloadable OCR diary document csv by st.table
         ocr_urination_data_csv = convert_df_to_csv(ocr_urination_data_df)
         # ocr_urination_data_csv_fn = "ocr_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ocr_urination_data_csv_fn = "ocr_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-        st.download_button(label="Download OCR diary document as CSV",
-                           data=ocr_urination_data_csv,
-                           file_name=ocr_urination_data_csv_fn,
-                           mime='text/csv')
+        ########## st.download_button(label="Download OCR diary document as CSV",
+        ##########                   data=ocr_urination_data_csv,
+        ##########                   file_name=ocr_urination_data_csv_fn,
+        ##########                   mime='text/csv')
 
         ###
         # Recognized image(s) display
@@ -1360,17 +1361,17 @@ def main():
         ud_df1 = ud_df1_tmp.dropna(subset=['datetime'])
         #
         # Downloadable recognized document display Type A by st.table
-        ##### st.table(ud_df1.style.highlight_max(axis=0))
+        st.table(ud_df1.style.highlight_max(axis=0))
         #
         # Downloadable recognized document CSV (=data CSV)
         ud_df1_csv = convert_df_to_csv(ud_df1)
         # ud_df1_csv_fn = "ud_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df1_csv_fn = "ud_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-        # st.subheader("日誌データ（認識結果）のCSV形式でのダウンロード")
-        ##### st.download_button(label="Download recognized data as CSV",
-        #####                   data=ud_df1_csv,
-        #####                   file_name=ud_df1_csv_fn,
-        #####                   mime='text/csv')
+        st.subheader("日誌データ（認識結果）のCSV形式でのダウンロード")
+        st.download_button(label="Download recognized data as CSV",
+                           data=ud_df1_csv,
+                           file_name=ud_df1_csv_fn,
+                           mime='text/csv')
                 
         ###
         # Downloadable editable document (=data) Type B
