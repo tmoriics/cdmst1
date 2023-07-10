@@ -702,15 +702,16 @@ def main():
     # by date_input
     di_e = lcol1.empty()
     with di_e.container():
-#        diary_date = st.date_input("日付を西暦で入力してください。",
+#       diary_date = st.date_input("日付を西暦で入力してください。",
 #                                   (dt_now+datetime.timedelta(days=-365)).date())
-         diary_date = st.date_input("日付を西暦で入力してください。",
-                                    (dt_now+datetime.timedelta(days=-600)).date())
-         if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
-             st.warning('日付の入力を御願いします。')
-#        if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
-#            st.warning('日付の入力を御願いします。')
+        diary_date = st.date_input("日付を西暦で入力してください。",
+                                   (dt_now+datetime.timedelta(days=-600)).date())
+        if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
+            st.warning('日付の入力を御願いします。')
             st.stop()
+        # if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
+        #   st.warning('日付の入力を御願いします。')
+        #    st.stop()
         st.success('入力が確認できました。'+diary_date.strftime('%Y年%m月%d日'))
         # time.sleep(2)
     # WIP 連続四日の初日もしくは第ゼロ日である出産日を別入力してもらうべきかもしれないが現状は日誌日で。
