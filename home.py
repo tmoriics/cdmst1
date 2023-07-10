@@ -40,7 +40,7 @@
 # 2023-07-07T16:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T16:18 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
-# 2023-07-10T22:26 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
+# 2023-07-10T22:36 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -605,7 +605,7 @@ def main():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
-    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-10T22:26)')
+    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-10T22:36)')
 
     ###
     # Setting by the sidebar
@@ -960,12 +960,9 @@ def main():
                                              data=photo_file_buffer,
                                              file_name=jpg_fn,
                                              mime="image/jpg")
-                    st.write('Here0')
                     ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name,
-                                                                  diary_id, diary_date, diary_first_date)
-                    st.write('Here1')
+                                                                  diary_id, diary_date, diary_page, diary_first_date)
             else:
-                st.write('THere')
                 st.write('このような日誌画像を縦長で撮影してください。')
                 st.image(form1_sample1_image, caption='日誌画像例', width=256)
                 st.stop()
@@ -1000,7 +997,7 @@ def main():
                                              file_name=jpg_fn,
                                              mime="image/jpg")
                     ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name,
-                                                                  diary_id, diary_date, diary_first_date)
+                                                                  diary_id, diary_date, diary_page, diary_first_date)
             else:
                 st.write('このような日誌画像を縦長で撮影してください。')
                 st.image(form1_sample1_image, caption='日誌画像例', width=256)
@@ -1029,7 +1026,6 @@ def main():
     ocr_urination_data_df['切迫感'] = '有・無'
     ocr_urination_data_df['残尿感'] = '有・無'
     ocr_urination_data_df['メモ'] = ocr_urination_data_df['メモ欄']
-    st.write('Here2')
     for index, row in ocr_urination_data_df.iterrows():
         if row['もれ無し'] == '無':
             row['もれ'] = '無'
