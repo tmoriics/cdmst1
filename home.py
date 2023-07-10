@@ -1025,6 +1025,9 @@ def main():
     ocr_urination_data_df['切迫感'] = '有・無'
     ocr_urination_data_df['残尿感'] = '有・無'
     ocr_urination_data_df['メモ'] = ocr_urination_data_df['メモ欄']
+    st.write('Here!')
+    st.write('Here!')
+    st.write('Here!')
     for index, row in ocr_urination_data_df.iterrows():
         if row['もれ無し'] == '無':
             row['もれ'] = '無'
