@@ -929,7 +929,43 @@ def main():
                                          width=48 )
                 st.image(form1_sample1_image, caption='日誌画像例', width=240)
                 st.stop()
-      else: # 'カメラ撮影'
+      elif ri == 'カメラ撮影':
+            photo_file_buffer = take_photo_func()
+            #   camera_image = st.camera_input("Take a snapshot of today's diary")
+            #   if camera_image:
+            #       st.image(camera_image, caption='Taken diary snapshot')
+            if photo_file_buffer is not None:
+                ##########
+                # photo_file_buffer is a file-like.
+                st.success('撮影画像が登録されました。')
+                ##########
+                with tempfile.NamedTemporaryFile(delete=False) as jpg_tmp_file:
+                    fp = Path(jpg_tmp_file.name)
+                    fp.write_bytes(photo_file_buffer.getvalue())
+                    # ccjimg = Image.open(jpg_tmp_file.name)
+                    # st.image(ccimg, caption='Taken photo',use_column_width=False)
+                    # for check
+                    # print(jpg_tmp_file.name)
+                    ##########
+                    cimg = Image.open(photo_file_buffer)
+                    # cimg_width = cimg.width
+                    # cimg_height = cimg.height
+                    cimg_array = np.array(cimg)
+                    st.write(cimg_array.shape)
+                    st.image(cimg, caption='日誌画像', width=256)
+                    # jpg_fn = 'diary_'+str(diary_id)+"_" + diary_first_date.strftime('%Y%m%d')+'.jpg'
+                    jpg_fn = str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.jpg'
+                    btn = st.download_button(label="Download the registered image",
+                                             data=photo_file_buffer,
+                                             file_name=jpg_fn,
+                                             mime="image/jpg")
+                    ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name,
+                                                                  diary_id, diary_date, diary_first_date)
+            else:
+                st.write('このような日誌画像を縦長で撮影してください。')
+                st.image(form1_sample1_image, caption='日誌画像例', width=256)
+                st.stop()
+      else: # '???'
             photo_file_buffer = take_photo_func()
             #   camera_image = st.camera_input("Take a snapshot of today's diary")
             #   if camera_image:
