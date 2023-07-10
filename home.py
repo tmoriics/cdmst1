@@ -960,6 +960,7 @@ def main():
                                              data=photo_file_buffer,
                                              file_name=jpg_fn,
                                              mime="image/jpg")
+                    st.write('Here0')
                     ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name,
                                                                   diary_id, diary_date, diary_first_date)
                     st.write('Here1')
