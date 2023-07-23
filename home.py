@@ -608,8 +608,7 @@ def main():
     st.title('排尿日誌マネージャー（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
     st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23)')
-    st.text('女性骨盤底医学会デモ用')
-    st.text('（サーバにデータ残しません）')
+    st.text('女性骨盤底医学会デモ用。サーバにデータ残しません。）')
 
     ###
     # Setting by the sidebar
