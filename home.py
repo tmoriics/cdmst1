@@ -1511,12 +1511,12 @@ def main():
         ud_df2_csv = convert_df_to_csv(ud_df2)
         # ud_df2_csv_fn = "gd_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df2_csv_fn = "gd_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-         st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
-         st.download_button(label="Download edited data as CSV",
-                             data=ud_df2_csv,
-                             file_name=ud_df2_csv_fn,
-                             mime='text/csv')
-
+        st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
+        st.download_button(label="Download edited data as CSV",
+                           data=ud_df2_csv,
+                           file_name=ud_df2_csv_fn,
+                           mime='text/csv')
+        
         #
         # plotly graph
         with ud_e.container():
