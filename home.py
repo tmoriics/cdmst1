@@ -706,11 +706,11 @@ def main():
 #       diary_date = st.date_input("日付を西暦で入力してください。",
 #                                   (dt_now+datetime.timedelta(days=-365)).date())
         diary_date = st.date_input("日付を西暦で入力してください。",
-                                   (dt_now+datetime.timedelta(days=-500)).date())
-        if diary_date == (dt_now+datetime.timedelta(days=-500)).date():
+                                   (dt_now+datetime.timedelta(days=-600)).date())
+        if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
             st.warning('日付の入力を御願いします。')
             st.stop()
-        # if diary_date == (dt_now+datetime.timedelta(days=-500)).date():
+        # if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
         #   st.warning('日付の入力を御願いします。')
         #    st.stop()
         st.success('入力が確認できました。'+diary_date.strftime('%Y年%m月%d日'))
@@ -1344,6 +1344,19 @@ def main():
         # Recognized diary document display
 #####   st.header("日誌データ（認識結果）")
 
+        ##
+        # OCR diary doument csv by st.table display
+        ###
+        st.subheader("テーブル（読み取り結果）")
+        st.table(ocr_urination_data_df)
+        st.markdown("#### テーブル（読み取り結果）のCSV形式でのダウンロード")
+        urination_data_csv_btn = st.download_button(
+            label="Download OCR diary document as CSV",
+            data=ocr_urination_data_csv,
+            file_name=ocr_urination_data_csv_fn,
+            mime="text/csv",
+
+        
         ##
         # OCR image(s) display
         ##
