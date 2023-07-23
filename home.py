@@ -1349,7 +1349,7 @@ def main():
         ###
         st.subheader("テーブル（読み取り結果）")
         st.table(ocr_urination_data_df)
-        st.markdown("#### テーブル（読み取り結果）のCSV形式でのダウンロード")
+        ##### st.markdown("#### テーブル（読み取り結果）のCSV形式でのダウンロード")
         urination_data_csv_btn = st.download_button(
             label="Download OCR diary document as CSV",
             data=ocr_urination_data_csv,
@@ -1511,7 +1511,7 @@ def main():
         ud_df2_csv = convert_df_to_csv(ud_df2)
         # ud_df2_csv_fn = "gd_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df2_csv_fn = "gd_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-        st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
+        ##### st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
         st.download_button(label="Download edited data as CSV",
                            data=ud_df2_csv,
                            file_name=ud_df2_csv_fn,
@@ -1747,7 +1747,7 @@ def main():
         indices_csv = convert_df_to_csv(indices_df)
         # indices_csv_fn = "indices_" +  str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         indices_csv_fn = "indices_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-        st.subheader("排尿関連指標のCSV形式でのダウンロード")
+        ##### st.subheader("排尿関連指標のCSV形式でのダウンロード")
         st.download_button(label="Download indices as CSV",
                            data=indices_csv,
                            file_name=indices_csv_fn,
