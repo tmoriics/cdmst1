@@ -41,7 +41,8 @@
 # 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T16:18 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T22:36 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
-# 2023-07-23T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
+# 2023-07-22T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
+# 2023-07-23T12:23 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -607,6 +608,8 @@ def main():
     st.title('排尿日誌マネージャー（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
     st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23)')
+    st.text('女性骨盤底医学会デモ用')
+    st.text('（サーバにデータ残しません）')
 
     ###
     # Setting by the sidebar
