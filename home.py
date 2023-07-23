@@ -594,7 +594,6 @@ def main():
     ###
     # Load heavy things
     ###
-    s1small_image = Image.open('images/s1small.jpg')
     form1_sample1_image = Image.open('images/diary_form1_sample1.jpg')
     form1_sample1_xlsx_image = Image.open('images/urination_data_sample1.png')
 
@@ -871,8 +870,6 @@ def main():
             ##########################################################
       elif ri == '画像ファイル(JPG)':
             st.write('このような日誌画像(JPG)を登録してください。')
-            st.image(s1small_image, caption='例としてこれを保存しお使い頂いても結構です．',
-                     width=160)
             w = form1_sample1_image.width
             h = form1_sample1_image.height
             im_a = Image.new("L", (w, h), 0)
