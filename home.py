@@ -819,8 +819,6 @@ def main():
                 st.image(form1_sample1_xlsx_image, caption='日誌例', width=3600)
                 st.stop()
       elif ri == '画像ファイル(PDF)':
-            st.write('このような日誌画像をアップロードしてください。')
-            st.image(form1_sample1_image, caption='日誌画像例', width=80)
             uploaded_pdf_file = upload_pdf_file_func()
             if uploaded_pdf_file is not None:
                 # uploaded_pdf_file is a file-like.
@@ -843,6 +841,8 @@ def main():
                 st.write("filename: ", uploaded_pdf_file.name)
                 ocr_data_df = get_ocr_dataframe_from_pdf_file(pdf_tmp_file.name, diary_id, diary_date, diary_page, diary_first_date)
             else: 
+                st.write('このような日誌画像をアップロードしてください。')
+                st.image(form1_sample1_image, caption='日誌画像例', width=120)
                 st.stop()
       # elif ri == '画像ファイル(JPG)':
             ##########################################################
@@ -865,6 +865,23 @@ def main():
             #             ocr_data_df[i] = get_ocr_dataframe_from_jpg_file(uploaded_file.name, diary_id, diary_date, diary_page, diary_first_date)
             ##########################################################
       elif ri == '画像ファイル(JPG)':
+            st.write('このような日誌画像(JPG)をアップロードしてください。')
+            w = form1_sample1_image.width
+            h = form1_sample1_image.height
+            im_a = Image.new("L", (w, h), 0)
+            draw = ImageDraw.Draw(im_a)
+            draw.ellipse( ((w*0.01,h*0.01), (w-w*0.01,h-h*0.01)), fill=255)
+            im_a_filtered = im_a.filter(ImageFilter.GaussianBlur(96))
+            form1_sample1_image.putalpha(im_a_filtered)
+            form1_sample1_draw = ImageDraw.Draw(form1_sample1_image)
+            form1_sample1_draw.line( ((w*0.01, h*0.01),
+                                      (w-w*0.01, h*0.01), 
+                                      (w-w*0.01, h-h*0.01), 
+                                      (w*0.01, h-h*0.01), 
+                                      (w*0.01, h*0.01)), 
+                                     fill=(0, 192, 192), 
+                                     width=48 )
+            st.image(form1_sample1_image, caption='日誌画像例', width=160)
             uploaded_jpg_file = upload_jpg_file_func()
             if uploaded_jpg_file is not None:
                 # uploaded_jpg_file is a file-like.
@@ -924,23 +941,23 @@ def main():
                 #####ocr_data_df = pd.read_csv("data/urination_data_sample1.csv")
                 ocr_data_df = get_ocr_dataframe_from_jpg_file(jpg_tmp_file.name, diary_id, diary_date, diary_page, diary_first_date)
             else:
-                st.write('このような日誌画像(JPG)をアップロードしてください。')
-                w = form1_sample1_image.width
-                h = form1_sample1_image.height
-                im_a = Image.new("L", (w, h), 0)
-                draw = ImageDraw.Draw(im_a)
-                draw.ellipse( ((w*0.01,h*0.01), (w-w*0.01,h-h*0.01)), fill=255)
-                im_a_filtered = im_a.filter(ImageFilter.GaussianBlur(96))
-                form1_sample1_image.putalpha(im_a_filtered)
-                form1_sample1_draw = ImageDraw.Draw(form1_sample1_image)
-                form1_sample1_draw.line( ((w*0.01, h*0.01),
-                                          (w-w*0.01, h*0.01), 
-                                          (w-w*0.01, h-h*0.01), 
-                                          (w*0.01, h-h*0.01), 
-                                          (w*0.01, h*0.01)), 
-                                         fill=(0, 192, 192), 
-                                         width=48 )
-                st.image(form1_sample1_image, caption='日誌画像例', width=240)
+                # st.write('このような日誌画像(JPG)をアップロードしてください。')
+                # w = form1_sample1_image.width
+                # h = form1_sample1_image.height
+                # im_a = Image.new("L", (w, h), 0)
+                # draw = ImageDraw.Draw(im_a)
+                # draw.ellipse( ((w*0.01,h*0.01), (w-w*0.01,h-h*0.01)), fill=255)
+                # im_a_filtered = im_a.filter(ImageFilter.GaussianBlur(96))
+                # form1_sample1_image.putalpha(im_a_filtered)
+                # form1_sample1_draw = ImageDraw.Draw(form1_sample1_image)
+                # form1_sample1_draw.line( ((w*0.01, h*0.01),
+                #                           (w-w*0.01, h*0.01), 
+                #                           (w-w*0.01, h-h*0.01), 
+                #                           (w*0.01, h-h*0.01), 
+                #                           (w*0.01, h*0.01)), 
+                #                          fill=(0, 192, 192), 
+                #                          width=48 )
+                # st.image(form1_sample1_image, caption='日誌画像例', width=240)
                 st.stop()
       elif ri == 'カメラ撮影':
             photo_file_buffer = take_photo_func()
