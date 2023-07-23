@@ -45,6 +45,7 @@
 # 2023-07-23T12:23 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
 # 2023-07-23T15:04 cdmst1 templateIds: now [9037] Messages
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Display contents
+# 2023-07-23T15:40 cdmst1 templateIds: now [9037] Show a sample
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -593,6 +594,7 @@ def main():
     ###
     # Load heavy things
     ###
+    s1small_image = Image.open('images/s1small1.jpg')
     form1_sample1_image = Image.open('images/diary_form1_sample1.jpg')
     form1_sample1_xlsx_image = Image.open('images/urination_data_sample1.png')
 
@@ -609,7 +611,8 @@ def main():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌アプリ（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23T15:04)')
-    st.text('（女性骨盤底医学会デモ用。サーバにデータ残しません。）')
+    st.text('（女性骨盤底医学会デモ用。サーバにデータ残しません．）')
+    st.image(s1small_image, caption='例としてこれを保存しお使い頂いても結構です．', width=120))
 
     ###
     # Setting by the sidebar
