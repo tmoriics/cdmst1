@@ -44,6 +44,7 @@
 # 2023-07-22T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
 # 2023-07-23T12:23 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
 # 2023-07-23T15:04 cdmst1 templateIds: now [9037] Messages
+# 2023-07-23T15:40 cdmst1 templateIds: now [9037] Display contents
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
