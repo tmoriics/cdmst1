@@ -612,7 +612,7 @@ def main():
     st.title('排尿日誌アプリ（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23T15:04)')
     st.text('（女性骨盤底医学会デモ用。サーバにデータ残しません．）')
-    st.image(s1small_image, caption='例としてこれを保存しお使い頂いても結構です．', width=120))
+    st.image(s1small_image, caption='例としてこれを保存しお使い頂いても結構です．', width=120)
 
     ###
     # Setting by the sidebar
