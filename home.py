@@ -594,7 +594,7 @@ def main():
     ###
     # Load heavy things
     ###
-    s1small_image = Image.open('images/s1small1.jpg')
+    s1small_image = Image.open('images/s1small.jpg')
     form1_sample1_image = Image.open('images/diary_form1_sample1.jpg')
     form1_sample1_xlsx_image = Image.open('images/urination_data_sample1.png')
 
