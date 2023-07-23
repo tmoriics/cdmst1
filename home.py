@@ -43,6 +43,7 @@
 # 2023-07-10T22:36 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-22T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
 # 2023-07-23T12:23 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
+# 2023-07-23T15:04 cdmst1 templateIds: now [9037] Messages
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -605,10 +606,9 @@ def main():
       </style>
       """
     st.markdown(hide_menu_style, unsafe_allow_html=True)
-    st.title('排尿日誌マネージャー（産褥期）')
-    # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
-    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23)')
-    st.text('女性骨盤底医学会デモ用。サーバにデータ残しません。）')
+    st.title('排尿日誌アプリ（産褥期）')
+    # st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23T15:04)')
+    st.text('（女性骨盤底医学会デモ用。サーバにデータ残しません。）')
 
     ###
     # Setting by the sidebar
@@ -643,7 +643,7 @@ def main():
     # Today set
     ###
     dt_now = datetime.datetime.now(tz_jst)
-    rcol1.markdown('### 現在の日時：'+dt_now.strftime('%Y年%m月%d日 %H:%M'+'です。'))
+    rcol1.markdown('### 現在の日時：'+dt_now.strftime('%m月%d日 %H:%M'+'です。'))
 
     weather_url = 'https://weather.tsukumijima.net/api/forecast'
     params = {'city': 130010}
@@ -867,7 +867,7 @@ def main():
             #             ocr_data_df[i] = get_ocr_dataframe_from_jpg_file(uploaded_file.name, diary_id, diary_date, diary_page, diary_first_date)
             ##########################################################
       elif ri == '画像ファイル(JPG)':
-            st.write('このような日誌画像(JPG)をアップロードしてください。')
+            st.write('このような日誌画像(JPG)を登録してください。')
             w = form1_sample1_image.width
             h = form1_sample1_image.height
             im_a = Image.new("L", (w, h), 0)
