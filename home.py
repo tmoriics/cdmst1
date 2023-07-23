@@ -41,6 +41,7 @@
 # 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T16:18 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T22:36 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
+# 2023-07-23T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -605,7 +606,7 @@ def main():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌マネージャー（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmoriics (2022-08-09T18:40)')
-    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-10T22:36)')
+    st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23)')
 
     ###
     # Setting by the sidebar
@@ -705,8 +706,8 @@ def main():
 #       diary_date = st.date_input("日付を西暦で入力してください。",
 #                                   (dt_now+datetime.timedelta(days=-365)).date())
         diary_date = st.date_input("日付を西暦で入力してください。",
-                                   (dt_now+datetime.timedelta(days=-600)).date())
-        if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
+                                   (dt_now+datetime.timedelta(days=-730)).date())
+        if diary_date == (dt_now+datetime.timedelta(days=-730)).date():
             st.warning('日付の入力を御願いします。')
             st.stop()
         # if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
@@ -725,19 +726,23 @@ def main():
     # Diary page input
     ###
     # diary_page_string = '1'
-    pi_e = lcol1.empty()
-    with pi_e.container():
-        diary_page_string = st.text_input("念のため日誌の何ページ目か，数字で入力してください。")
-        if len(diary_page_string) != 0:
-            diary_page = int(float(diary_page_string))
-            if diary_page >= 9999:
-                st.stop()
-            else:
-                st.success('入力が確認できました。'+diary_page_string)
-        else:
-            st.warning('念のため日誌のページの入力を御願いします。')
-            st.stop()
-    pi_e.empty()
+#   pi_e = lcol1.empty()
+#   with pi_e.container():
+#       diary_page_string = st.text_input("念のため日誌の何ページ目か，数字で入力してください。")
+#       if len(diary_page_string) != 0:
+#           diary_page = int(float(diary_page_string))
+#           if diary_page >= 9999:
+#               st.stop()
+#           else:
+#               st.success('入力が確認できました。'+diary_page_string)
+#       else:
+#           st.warning('念のため日誌のページの入力を御願いします。')
+#           st.stop()
+#   pi_e.empty()
+#   lcol1.info('日誌ページはp.'+diary_page_string+'です。')
+
+    diary_page_string = "1"
+    diary_page = int(float(diary_page_string))
     lcol1.info('日誌ページはp.'+diary_page_string+'です。')
     
     ###
@@ -799,9 +804,12 @@ def main():
       #       ri = st.radio("日誌画像をアップロードしてください。スマホカメラでいま撮影しても構いません。",
       #                     ('画像ファイル(JPG)', '画像ファイル(PDF)', 'カメラ撮影', 'ファイル(XLSX)'),
       #                      horizontal=True)
-      ri = st.radio("日誌画像をアップロードしてください。スマホカメラでいま撮影しても構いません。",
-                    ('画像ファイル(JPG)', 'カメラ撮影', 'ファイル(XLSX)'),
-                    horizontal=True)
+#     ri = st.radio("日誌画像をアップロードしてください。スマホカメラでいま撮影しても構いません。",
+#                   ('画像ファイル(JPG)', 'カメラ撮影', 'ファイル(XLSX)'),
+#                   horizontal=True)
+        
+      ri = '画像ファイル(JPG)'
+      
       if ri == 'ファイル(XLSX)':
             uploaded_xlsx_file = upload_xlsx_file_func()
             if uploaded_xlsx_file is not None:
