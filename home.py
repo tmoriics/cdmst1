@@ -706,11 +706,11 @@ def main():
 #       diary_date = st.date_input("日付を西暦で入力してください。",
 #                                   (dt_now+datetime.timedelta(days=-365)).date())
         diary_date = st.date_input("日付を西暦で入力してください。",
-                                   (dt_now+datetime.timedelta(days=-730)).date())
-        if diary_date == (dt_now+datetime.timedelta(days=-730)).date():
+                                   (dt_now+datetime.timedelta(days=-500)).date())
+        if diary_date == (dt_now+datetime.timedelta(days=-500)).date():
             st.warning('日付の入力を御願いします。')
             st.stop()
-        # if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
+        # if diary_date == (dt_now+datetime.timedelta(days=-500)).date():
         #   st.warning('日付の入力を御願いします。')
         #    st.stop()
         st.success('入力が確認できました。'+diary_date.strftime('%Y年%m月%d日'))
@@ -785,13 +785,12 @@ def main():
                                                                       next_bed_pm_adjust_boolean)
     #
     # Wakeup time display
-    st.markdown('### 起床時刻：')
-    st.text('対象日の起床時刻は' + wakeup_datetime.strftime("%Y-%m-%dT%H:%M") + 'としています。')
-    #
-    # bed time display
-    st.markdown('### 就寝時刻：')
-    st.text('対象日の就寝時刻は' + bed_datetime.strftime("%Y-%m-%dT%H:%M") + 'としています。')
-    
+#    st.markdown('### 起床時刻：')
+#    st.text('対象日起床時刻は' + wakeup_datetime.strftime("%Y-%m-%dT%H:%M") + 'としています。')
+#    #
+#    # bed time display
+#    st.markdown('### 就寝時刻：')
+#    st.text('対象日就寝時刻は' + bed_datetime.strftime("%Y-%m-%dT%H:%M") + 'としています。')
     
     ###
     # Diary read
@@ -820,6 +819,8 @@ def main():
                 st.image(form1_sample1_xlsx_image, caption='日誌例', width=3600)
                 st.stop()
       elif ri == '画像ファイル(PDF)':
+            st.write('このような日誌画像をアップロードしてください。')
+            st.image(form1_sample1_image, caption='日誌画像例', width=80)
             uploaded_pdf_file = upload_pdf_file_func()
             if uploaded_pdf_file is not None:
                 # uploaded_pdf_file is a file-like.
@@ -842,8 +843,6 @@ def main():
                 st.write("filename: ", uploaded_pdf_file.name)
                 ocr_data_df = get_ocr_dataframe_from_pdf_file(pdf_tmp_file.name, diary_id, diary_date, diary_page, diary_first_date)
             else: 
-                st.write('このような日誌画像をアップロードしてください。')
-                st.image(form1_sample1_image, caption='日誌画像例', width=120)
                 st.stop()
       # elif ri == '画像ファイル(JPG)':
             ##########################################################
