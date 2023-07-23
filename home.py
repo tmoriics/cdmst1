@@ -1365,11 +1365,11 @@ def main():
             if ri == '画像ファイル(JPG)':
 #####                st.image(timgs_ocr, caption='認識された日誌画像', width=480)
                 st.image(timgs_ocr, caption='認識された日誌画像', width=240)
-                with open(ocr_png_tmp_file.name, "rb") as ocr_file:
-                    btn = st.download_button(label="Download the recognized image in PNG format",
-                                             data=ocr_file,
-                                             file_name=timgs_ocr_fn,
-                                             mime="image/png")
+##                with open(ocr_png_tmp_file.name, "rb") as ocr_file:
+##                    btn = st.download_button(label="Download the recognized image in PNG format",
+##                                             data=ocr_file,
+##                                             file_name=timgs_ocr_fn,
+##                                             mime="image/png")
             # elif ri == '画像ファイル(PDF)':
             #    st.image(timgs_ocr, caption='認識された日誌画像', width=120)
             ##### WIP ダウンロード用画像を上の方でつくっていない
@@ -1470,7 +1470,7 @@ def main():
         
         #
         # Downloadable editable document display Type B by Aggrid
-        st.subheader("テーブル（編集用）")
+##        st.subheader("テーブル（編集用）")
         cellstyle_jscode = JsCode(
             """
         function(params) {
@@ -1499,12 +1499,12 @@ def main():
         urination_data_gb.configure_column("datetime", type=["customeDateTimeFormat"],
                                            custom_format_string='yyyy-MM-dd HH:mm zzz')
         urination_data_gridOptions = urination_data_gb.build()
-#       ud_gd = AgGrid(ud_df2_tmp, theme='blue',
-        ud_gd = AgGrid(ud_df2_tmp, theme='balham',
-                       gridOptions=urination_data_gridOptions,
-                       # enable_enterprise_modules=True,
-                       allow_unsafe_jscode=True,
-                       update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,)
+## #      ud_gd = AgGrid(ud_df2_tmp, theme='blue',
+##        ud_gd = AgGrid(ud_df2_tmp, theme='balham',
+##                       gridOptions=urination_data_gridOptions,
+##                       # enable_enterprise_modules=True,
+##                       allow_unsafe_jscode=True,
+##                       update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,)
         
 ################### WIP temporary HIDE HIDDEN
         #
@@ -1514,11 +1514,11 @@ def main():
         ud_df2_csv = convert_df_to_csv(ud_df2)
         # ud_df2_csv_fn = "gd_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df2_csv_fn = "gd_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-        # st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
-        st.download_button(label="Download edited data as CSV",
-                            data=ud_df2_csv,
-                            file_name=ud_df2_csv_fn,
-                            mime='text/csv')
+##         st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
+##         st.download_button(label="Download edited data as CSV",
+##                             data=ud_df2_csv,
+##                             file_name=ud_df2_csv_fn,
+##                             mime='text/csv')
 
         #
         # plotly graph
