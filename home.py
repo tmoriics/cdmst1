@@ -46,7 +46,8 @@
 # 2023-07-23T15:04 cdmst1 templateIds: now [9037] Messages
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Display contents
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Show a sample
-# 2023-07-25T13:10 cdmst1 templateIds: now [9037] Not showing a sample. 
+# 2023-07-25T13:10 cdmst1 templateIds: now [9037] Not showing a sample
+# 2023-07-25T17:10 cdmst1 templateIds: now [9037] Display contentes
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -1445,7 +1446,18 @@ def main():
         #
         # Downloadable recognized document display Type A by st.table
         st.table(ocr_urination_data_df)
-        st.table(ud_df1.style.highlight_max(axis=0))
+        st.dataframe(ud_df1.style.highlight_max(axis=0),
+                     column_order=('datetime','time_phase',
+                                   'memo',
+                                   'micturition', 'leakage', 'desire' ,'urgency', 'remaining',
+                                   'time_difference'),
+#                    column_order=('year','month','day','hour','minute',
+#                                  'datetime','time_phase',
+#                                  'memo',
+#                                  'micturition', 'no_leakage', 'leakage',
+#                                  'desire' ,'urgency', 'remaining',
+#                                  'time_difference'),
+                     hide_index=True)
         #
         # Downloadable recognized document CSV (=data CSV)
         ud_df1_csv = convert_df_to_csv(ud_df1)
