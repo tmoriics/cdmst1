@@ -66,8 +66,7 @@ def main():
     # st.image(img, caption='AI Center of the University of Tokyo', use_column_width=False)
     st.image(img, caption='tmorilab of Tokyo University of Science', use_column_width=False)
     
-    st.markdown('Copyright: ')
-    st.text('(c) 2022-2023 tmoriics')
+    st.markdown('Copyright: (c) 2022-2023 tmoriics')
     
     st.header('About: ')
     st.subheader('アプリの機能')
