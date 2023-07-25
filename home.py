@@ -610,10 +610,10 @@ def main():
       footer {visibility: hidden;}
       </style>
       """
+    page_url = "https//tmorilab.net/"
+
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌アプリ（産褥期）')
-    page_url = "https//tmorilab.net/"
-    st.write("[https://tmorilab.net/](%s)" % page_url)
     # st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23T15:04)')
     st.text('（女性骨盤底医学会デモ用。サーバにデータを残しません．）')
 
