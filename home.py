@@ -46,6 +46,7 @@
 # 2023-07-23T15:04 cdmst1 templateIds: now [9037] Messages
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Display contents
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Show a sample
+# 2023-07-25T13:10 cdmst1 templateIds: now [9037] Not showing a sample. 
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -1351,15 +1352,15 @@ def main():
         ##
         # OCR diary doument csv by st.table display
         ###
-        st.subheader("テーブル（読み取り結果）")
-        st.table(ocr_urination_data_df)
+# # #   st.subheader("テーブル（読み取り結果）")
+# # #   st.table(ocr_urination_data_df)
         ##### st.markdown("#### テーブル（読み取り結果）のCSV形式でのダウンロード")
-        urination_data_csv_btn = st.download_button(
-            label="Download OCR diary document as CSV",
-            data=ocr_urination_data_csv,
-            file_name=ocr_urination_data_csv_fn,
-            mime="text/csv",
-        )
+# # #   urination_data_csv_btn = st.download_button(
+# # #       label="Download OCR diary document as CSV",
+# # #       data=ocr_urination_data_csv,
+# # #       file_name=ocr_urination_data_csv_fn,
+# # #       mime="text/csv",
+# # #   )
         
         ##
         # OCR image(s) display
@@ -1395,19 +1396,19 @@ def main():
         ##
         # OCR diary doument csv
         ###
-        ########## st.subheader("テーブル（読み取り結果）")
+        st.subheader("テーブル（読み取り結果）")
         #
         # OCR diary document csv by st.table
-        ########## st.table(ocr_urination_data_df)
+        st.table(ocr_urination_data_df)
         #
         # Downloadable OCR diary document csv by st.table
         ocr_urination_data_csv = convert_df_to_csv(ocr_urination_data_df)
         # ocr_urination_data_csv_fn = "ocr_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ocr_urination_data_csv_fn = "ocr_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
-        ########## st.download_button(label="Download OCR diary document as CSV",
-        ##########                   data=ocr_urination_data_csv,
-        ##########                   file_name=ocr_urination_data_csv_fn,
-        ##########                   mime='text/csv')
+        st.download_button(label="Download OCR diary document as CSV",
+                           data=ocr_urination_data_csv,
+                           file_name=ocr_urination_data_csv_fn,
+                           mime='text/csv')
 
         ###
         # Recognized image(s) display
