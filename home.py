@@ -49,6 +49,7 @@
 # 2023-07-25T13:10 cdmst1 templateIds: now [9037] Not showing a sample
 # 2023-07-25T17:10 cdmst1 templateIds: now [9037] Display contentes
 # 2023-07-25T19:15 cdmst1 templateIds: now [9037] Display contentes
+# 2023-07-26T16:04 cdmst1 templateIds: now [9037] Display contentes
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -1491,7 +1492,7 @@ def main():
         
         #
         # Downloadable editable document display Type B by Aggrid
-        st.subheader("テーブル（編集用）")
+####### st.subheader("テーブル（編集用）")
         cellstyle_jscode = JsCode(
             """
         function(params) {
@@ -1533,10 +1534,10 @@ def main():
         # ud_df2_csv_fn = "gd_"+str(diary_id)+"_"+diary_first_date.strftime('%Y%m%d')+'.csv'
         ud_df2_csv_fn = "gd_"+ str(diary_id)+"_"+diary_first_date.strftime('%m%d')+'_p'+diary_page_string+'.csv'
         ##### st.subheader("日誌データ（編集後）のCSV形式でのダウンロード")
-        st.download_button(label="Download edited data as CSV",
-                           data=ud_df2_csv,
-                           file_name=ud_df2_csv_fn,
-                           mime='text/csv')
+#######        st.download_button(label="Download edited data as CSV",
+#######                           data=ud_df2_csv,
+#######                           file_name=ud_df2_csv_fn,
+#######                           mime='text/csv')
         
         #
         # plotly graph
