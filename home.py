@@ -1797,7 +1797,7 @@ def main():
 #                           file_name=composite_xlsx_fn)
 
 
-        st.markdown(":violet[アンケートにお答えください（よろしければ）] :pencil: :spiral_note_pad:")
+        st.header(":violet[アンケートにお答えください（よろしければ）] :pencil: :spiral_note_pad:")
         enq_url = "https://forms.gle/Tyk29oLgw6ZLxFyR7"
         st.write("[産褥排尿日誌利用アンケート](https://forms.gle/Tyk29oLgw6ZLxFyR7)")
     
