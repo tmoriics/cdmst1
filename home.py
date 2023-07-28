@@ -50,6 +50,7 @@
 # 2023-07-25T17:10 cdmst1 templateIds: now [9037] Display contentes
 # 2023-07-25T19:15 cdmst1 templateIds: now [9037] Display contentes
 # 2023-07-26T16:04 cdmst1 templateIds: now [9037] Display contentes
+# 2023-07-29T05:58 cdmst1 templateIds: now [9037] Enq
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -1794,7 +1795,11 @@ def main():
 #        st.download_button(label="Download composite as XLSX",
 #                           data=composite_xlsx_processed_data,
 #                           file_name=composite_xlsx_fn)
-        
+
+
+         enq_url = "https://forms.gle/Tyk29oLgw6ZLxFyR7"
+         st.write("アンケートにお答えください [link](https://forms.gle/Tyk29oLgw6ZLxFyR7)")
+    
     ###
     # Column 2 end
     ###
