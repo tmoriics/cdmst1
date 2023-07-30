@@ -653,7 +653,8 @@ def main():
     # Today set
     ###
     dt_now = datetime.datetime.now(tz_jst)
-    rcol1.markdown('### 現在の日時：'+dt_now.strftime('%m月%d日 %H:%M'+'です。'))
+    ### ### ### rcol1.markdown('### 現在の日時：'+dt_now.strftime('%m月%d日 %H:%M'+'です。'))
+    rcol1.markdown('##### 現在の日時：'+dt_now.strftime('%m月%d日 %H:%M'+'です。'))
 
     weather_url = 'https://weather.tsukumijima.net/api/forecast'
     params = {'city': 130010}
@@ -755,7 +756,7 @@ def main():
 
     diary_page_string = "1"
     diary_page = int(float(diary_page_string))
-    lcol1.info('日誌ページはp.'+diary_page_string+'です。')
+    ### ### ### lcol1.info('日誌ページはp.'+diary_page_string+'です。')
     
     ###
     # Column 1 end
