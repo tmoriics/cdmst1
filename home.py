@@ -618,7 +618,8 @@ def main():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌アプリ（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmorilab.net (2023-07-30T15:00)')
-    st.text('（女性骨盤底医学会 演題 1A13P デモ用。サーバにデータを残しません． https://tmorilab.net/ ）')
+    st.text('（女性骨盤底医学会 演題 1A13P デモ用）')
+    st.text('（サーバにデータを残しません． https://tmorilab.net/ ）')
 
     ###
     # Setting by the sidebar
