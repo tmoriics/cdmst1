@@ -13,6 +13,7 @@
 ##### 2023-07-08T11:41 cdmst1
 ##### 2023-07-09T12:08 cdmst1
 ##### 2023-07-25T19:12 cdmst1
+##### 2023-07-30T15:01 cdmst1
 #####
 
 ### 
@@ -62,7 +63,7 @@ def main():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     
     st.title('このサイトについて')
-    st.write('About this site @tmoriics')
+    st.write('About this site @tmoriics https://tmorilab.net/')
     # st.image(img, caption='AI Center of the University of Tokyo', use_column_width=False)
     st.image(img, caption='tmorilab of Tokyo University of Science', use_column_width=False)
     

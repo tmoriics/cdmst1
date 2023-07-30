@@ -51,7 +51,6 @@
 # 2023-07-25T19:15 cdmst1 templateIds: now [9037] Display contentes
 # 2023-07-26T16:04 cdmst1 templateIds: now [9037] Display contentes
 # 2023-07-29T05:58 cdmst1 templateIds: now [9037] Enq
-# 2023-07-30T15:00 cdmst1 templateIds: now [9037] Web link
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -617,8 +616,8 @@ def main():
 
     st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.title('排尿日誌アプリ（産褥期）')
-    # st.text('Copyright (c) 2022-2023 tmorilab.net (2023-07-30T15:00)')
-    st.text('（女性骨盤底医学会 演題 1A13P デモ用。サーバにデータを残しません．）')
+    # st.text('Copyright (c) 2022-2023 tmoriics (2023-07-23T15:04)')
+    st.text('（女性骨盤底医学会デモ用。サーバにデータを残しません．）')
 
     ###
     # Setting by the sidebar
