@@ -1809,7 +1809,7 @@ def main():
     enq_url = "https://forms.gle/Tyk29oLgw6ZLxFyR7"
     st.write("[産褥排尿日誌利用アンケート](https://forms.gle/Tyk29oLgw6ZLxFyR7)")
     tmorilab_logo_img = Image.open('images/tmorilab_name_logo.png')
-    st.write(tmorilab_logo_img, caption='https://tmorilab.net/')
+    st.image(tmorilab_logo_img, caption='https://tmorilab.net/')
     
     ###
     ### Refresh if needed
