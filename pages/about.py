@@ -15,6 +15,7 @@
 ##### 2023-07-25T19:12 cdmst1
 ##### 2023-07-30T15:01 cdmst1
 ##### 2023-07-31T13:20 cdmst1
+##### 2023-08-01T13:51 cdmst1
 #####
 
 ### 
@@ -68,7 +69,7 @@ def main():
     # st.image(img, caption='AI Center of the University of Tokyo', use_column_width=False)
     st.image(img, caption='tmorilab of Tokyo University of Science', use_column_width=False)
     
-    st.markdown('Copyright: (c) 2022-2023 tmoriics')
+    st.markdown('Copyright: (c) 2022-2023 Taketoshi MORI')
     
     st.header('About: ')
     st.subheader('アプリの機能')
