@@ -66,8 +66,10 @@ def main():
     
     st.title('このサイトについて')
     st.write('About this site @tmoriics https://tmorilab.net/')
-    # st.image(img, caption='AI Center of the University of Tokyo', use_column_width=False)
-    st.image(img, caption='tmorilab of Tokyo University of Science', use_column_width=False)
+    # st.image(img, caption='AI Center of the University of Tokyo', 
+    # use_column_width=False)
+    st.image(img, caption='tmorilab of Tokyo University of Science', 
+             use_column_width=False)
     
     st.markdown('Copyright: (c) 2022-2023 Taketoshi MORI')
     
@@ -96,4 +98,3 @@ def main():
 ###
 if __name__ == '__main__':
     main()
-

@@ -2,7 +2,7 @@
 #######
 #######
 # home.py
-####### 
+#######
 #######
 # 2022-07-15T06:00
 # 2022-07-15T09:30
@@ -12,21 +12,21 @@
 # 2022-07-17T23:00
 # 2022-07-18T07:00
 # 2022-07-18T23:18
-# 2022-07-19T15:49 
+# 2022-07-19T15:49
 # 2022-07-20T22:00
-# 2022-07-22T12:00 
-# 2022-07-23T12:00 
-# 2022-07-24T10:30 
-# 2022-07-25T13:30 
-# 2022-07-28T19:00 
+# 2022-07-22T12:00
+# 2022-07-23T12:00
+# 2022-07-24T10:30
+# 2022-07-25T13:30
+# 2022-07-28T19:00
 # 2022-07-29T22:30
-# 2022-08-03T22:20 
+# 2022-08-03T22:20
 # 2022-08-03T22:30
 # 2022-08-04T00:05
 # 2022-08-05T00:58
 # 2022-08-05T10:59 sttest2  ほぼ完成
 # 2022-08-05T14:59 sttest2 ダウンロードのたびにAPIアクセスに行く問題解説
-# 2022-08-05T14:59 sttest2 
+# 2022-08-05T14:59 sttest2
 # 2022-08-05T16:25 cdmst1
 # 2022-08-05T19:20 cdmst1
 # 2022-08-05T22:30 cdmst1 templateIds:[8851]
@@ -35,14 +35,14 @@
 # 2022-08-06T21:00 cdmst1 order of df columns
 # 2022-08-06T23:40 cdmst1 order of MEMO cannot be easily changed
 # 2022-08-09T18:40 cdmst1 changed indices calculation
-# 2022-08-09T21:42 cdmst1 changed drop 
+# 2022-08-09T21:42 cdmst1 changed drop
 # 2022-08-17T17:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-07T16:01 cdmst1 templateIds: both [8851] and narrower [9037] now [9037]
 # 2023-07-09T12:11 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T16:18 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
 # 2023-07-10T22:36 cdmst1 templateIds: both [8851] and narrower [9037] now [9037] Table display changed.
-# 2023-07-22T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
-# 2023-07-23T12:23 cdmst1 templateIds: now [9037] Commented out XLSX etc. 
+# 2023-07-22T22:36 cdmst1 templateIds: now [9037] Commented out XLSX etc.
+# 2023-07-23T12:23 cdmst1 templateIds: now [9037] Commented out XLSX etc.
 # 2023-07-23T15:04 cdmst1 templateIds: now [9037] Messages
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Display contents
 # 2023-07-23T15:40 cdmst1 templateIds: now [9037] Show a sample
