@@ -690,7 +690,7 @@ def main():
     ###
     idi_e = lcol1.empty()
     with idi_e.container():
-        diary_id_string = st.text_input("日誌の対象者IDを数字（4桁）で入力してください。")
+        diary_id_string = st.text_input("日誌の対象者IDを数字（4桁）で入力してください。(Demo利用のときは1111など適当でOk)")
         if len(diary_id_string) != 0:
             diary_id = int(float(diary_id_string))
             if diary_id <= 1:
@@ -724,7 +724,7 @@ def main():
         diary_date = st.date_input("日付を西暦で入力してください。",
                                    (dt_now+datetime.timedelta(days=-600)).date())
         if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
-            st.warning('日付の入力を御願いします。')
+            st.warning('日付の入力を御願いします。(Demo利用のときは2021/12/01など適当でOk)')
             st.stop()
         # if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
         #   st.warning('日付の入力を御願いします。')
