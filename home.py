@@ -56,6 +56,7 @@
 # 2023-08-01T13:50 cdmst1 templateIds: now [9037] Display
 # 2023-08-03T11:38 cdmst1 templateIds: now [9037] Display
 # 2023-08-06T12:58 cdmst1 templateIds: now [9037] Display
+# 2023-10-20T17:58 cdmst1 templateIds: now [9037] Display Mori
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
@@ -622,8 +623,8 @@ def main():
     st.title('排尿日誌アプリ（産褥期）')
     # st.text('Copyright (c) 2022-2023 tmorilab.net (2023-08-01T13:50)')
     # st.text('（女性骨盤底医学会 演題 1A13P デモ用）')
-    st.text('（試行中： 8/1-8/31）')
-    st.markdown('###### サーバにデータを残しません．')
+    ##### st.text('（試行中： 8/1-8/31）')
+    ##### st.markdown('###### サーバにデータを残しません．')
 
     ###
     # Setting by the sidebar
@@ -692,7 +693,8 @@ def main():
     ###
     idi_e = lcol1.empty()
     with idi_e.container():
-        diary_id_string = st.text_input("日誌の対象者IDを数字（4桁）で入力してください。(Demo利用のときは1111など適当でOk)")
+#         diary_id_string = st.text_input("日誌の対象者IDを数字（4桁）で入力してください。(Demo利用のときは1111など適当でOk)")
+        diary_id_string = st.text_input("日誌の対象者IDを数字（4桁）で入力してください。")
         if len(diary_id_string) != 0:
             diary_id = int(float(diary_id_string))
             if diary_id <= 1:
