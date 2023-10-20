@@ -728,7 +728,8 @@ def main():
         diary_date = st.date_input("日付を西暦で入力してください。",
                                    (dt_now+datetime.timedelta(days=-600)).date())
         if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
-            st.warning('日付の入力を御願いします。(Demo利用のときは2021/12/01など適当でOk)')
+#             st.warning('日付の入力を御願いします。(Demo利用のときは2021/12/01など適当でOk)')
+            st.warning('日付の入力を御願いします。')
             st.stop()
         # if diary_date == (dt_now+datetime.timedelta(days=-600)).date():
         #   st.warning('日付の入力を御願いします。')
@@ -1810,7 +1811,7 @@ def main():
     # Column 2 end
     ###
     
-    st.header(":violet[アンケートにお答えください（よろしければ）] :pencil: :spiral_note_pad:")
+    st.header(":violet[アンケートにお答えください] :pencil: :spiral_note_pad:")
     enq_url = "https://forms.gle/Tyk29oLgw6ZLxFyR7"
     st.write("[産褥排尿日誌利用アンケート](https://forms.gle/Tyk29oLgw6ZLxFyR7)")
     tmorilab_logo_img = Image.open('images/tmorilab.png')
