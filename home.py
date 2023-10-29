@@ -57,6 +57,7 @@
 # 2023-08-03T11:38 cdmst1 templateIds: now [9037] Display
 # 2023-08-06T12:58 cdmst1 templateIds: now [9037] Display
 # 2023-10-20T17:58 cdmst1 templateIds: now [9037] Display Mori
+# 2023-10-29T13:58 cdmst1 templateIds: now [9037] Display Mori
 #
 ########## WIP
 #     2022/7/17 WIP アップロードこの方法ではcacheが働かない。memo機能も試したがでUploadのCacheは使わないでいくべき。
